@@ -1,0 +1,16 @@
+{
+  "author": "David Aurelio <dev@david-aurelio.com>",
+  "name": "lethargic",
+  "description": "Executes actions delayed, not reacting to further calls within that delay.",
+  "version": "0.0.0",
+  "homepage": "https://github.com/davidaurelio/node-tools/blob/master/lethargic",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davidaurelio/node-tools.git"
+  },
+  "engines": {
+    "node": ">= 0.0.1"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
