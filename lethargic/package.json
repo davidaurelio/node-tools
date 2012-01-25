@@ -9,7 +9,7 @@
     "url": "git://github.com/davidaurelio/node-tools.git"
   },
   "engines": {
-    "node": ">= 0.0.1"
+    "node": ""
   },
   "dependencies": {},
   "devDependencies": {}
