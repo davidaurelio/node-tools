@@ -11,4 +11,5 @@
   "engines": {
     "node": ""
   },
+  "scripts": {"test": "node test.js"}
 }
