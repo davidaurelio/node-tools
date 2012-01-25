@@ -29,8 +29,10 @@ calls.
 ### Examples:
 
 ~~~js
+var EventEmitter = require('events').EventEmitter;
 var l = require('lethargic');
 
+var child = new EventEmitter(), parent = new EventEmitter();
 var emitSweets = l.create(parent.emit.bind(parent, 'sweets'), 20000);
 
 child.on('wantsweets', emitSweets);
