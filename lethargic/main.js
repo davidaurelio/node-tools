@@ -21,7 +21,7 @@ function create(isCallback, func, delay) {
 
     if (isCallback) { // first argument is error, rest is data
       error = arguments[0];
-      if (error && !args[0]) {
+      if (!args[0]) {
         args[0] = error;
       }
       push(slice(arguments, 1));
