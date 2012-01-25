@@ -34,9 +34,9 @@ var l = require('lethargic');
 var emitSweets = l.create(parent.emit.bind(parent, 'sweets'), 20000);
 
 child.on('wantsweets', emitSweets);
-child.emit('sweets');
-child.emit('sweets');
-child.emit('sweets'); // sweets are emitted once after twenty seconds
+child.emit('wantsweets');
+child.emit('wantsweets');
+child.emit('wantsweets'); // sweets are emitted once after twenty seconds
 ~~~
 
 ~~~js
