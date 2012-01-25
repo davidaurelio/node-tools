@@ -28,39 +28,39 @@ calls.
 
 ### Examples:
 
-    ~~~js
-    var l = require('lethargic');
+~~~js
+var l = require('lethargic');
 
-    var emitSweets = l.create(parent.emit.bind(parent, 'sweets'), 20000);
+var emitSweets = l.create(parent.emit.bind(parent, 'sweets'), 20000);
 
-    child.on('wantsweets', emitSweets);
-    child.emit('sweets');
-    child.emit('sweets');
-    child.emit('sweets'); // sweets are emitted once after twenty seconds
-    ~~~
+child.on('wantsweets', emitSweets);
+child.emit('sweets');
+child.emit('sweets');
+child.emit('sweets'); // sweets are emitted once after twenty seconds
+~~~
 
-    ~~~js
-    var fs = require('fs');
-    var l = require('lethargic');
+~~~js
+var fs = require('fs');
+var l = require('lethargic');
 
-    // read file async, console.log once per tick
+// read file async, console.log once per tick
 
-    fs.readFile('README.md', 'utf-8', l.createCallback(function(error, data) {
-        /*
-            arguments are collected and concatenated.
-            if readFile called the callback three times, arguments would be
-            [(firstError or null), data0, data1, data2]
-        */
+fs.readFile('README.md', 'utf-8', l.createCallback(function(error, data) {
+/*
+    arguments are collected and concatenated.
+    if readFile called the callback three times, arguments would be
+    [(firstError or null), data0, data1, data2]
+*/
 
-        if (error) {
-            throw error;
-        }
+if (error) {
+    throw error;
+}
 
-        var contents = '';
-        for (var i = 1, len = arguments.length; i < len; i++) {
-            contents += arguments[i];
-        }
+var contents = '';
+for (var i = 1, len = arguments.length; i < len; i++) {
+    contents += arguments[i];
+}
 
-        console.log(contents);
-    }));
-    ~~~
+console.log(contents);
+}));
+~~~
