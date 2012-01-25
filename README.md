@@ -46,21 +46,21 @@ var l = require('lethargic');
 // read file async, console.log once per tick
 
 fs.readFile('README.md', 'utf-8', l.createCallback(function(error, data) {
-/*
-    arguments are collected and concatenated.
-    if readFile called the callback three times, arguments would be
-    [(firstError or null), data0, data1, data2]
-*/
+    /*
+        arguments are collected and concatenated.
+        if readFile called the callback three times, arguments would be
+        [(firstError or null), data0, data1, data2]
+    */
 
-if (error) {
-    throw error;
-}
+    if (error) {
+        throw error;
+    }
 
-var contents = '';
-for (var i = 1, len = arguments.length; i < len; i++) {
-    contents += arguments[i];
-}
+    var contents = '';
+    for (var i = 1, len = arguments.length; i < len; i++) {
+        contents += arguments[i];
+    }
 
-console.log(contents);
+    console.log(contents);
 }));
 ~~~
