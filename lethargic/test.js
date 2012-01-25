@@ -1,59 +1,63 @@
+'use strict';
+
 var lethargic = require('./main');
 var assert = require('assert');
 
-var DEFAULT_TIMEOUT = 10;
-(function() {
-  var i = 0;
-  var f = lethargic.create(function() {
-    i += 1;
-    assert.equal(i, 1, 'A wrapped function should be called only once on next tick');
+var TIMEOUT = 10;
+
+function test(create, message, testFunc) {
+  [
+    ['on next tick', function(f) { return create(f); }],
+    ['after a timeout', function(f) { return create(f, TIMEOUT); }]
+  ].forEach(function(p) {
+    var suffix = p[0];
+    testFunc(message + ' ' + p[0], p[1]);
   });
+}
 
-  f(); f(); f();
-})();
+var testStandard = test.bind(null, lethargic.create);
+var testCallback = test.bind(null, lethargic.createCallback);
 
-(function() {
-  var i = 0;
-  var f = lethargic.create(function() {
-    i += 1;
-    assert.equal(i, 1, 'A wrapped function should be called only once after a timeout');
-  }, DEFAULT_TIMEOUT);
+testStandard(
+  'A wrapped function should be called only once',
+  function(message, create) {
+    var i = 0;
+    var f = create(function() {
+      i += 1;
+      assert.equal(i, 1, message);
+    });
 
-  f(); f(); f();
-})();
+    f(); f(); f();
+});
 
-(function() {
-  var o = {};
-  var f = lethargic.create(function() {
-    assert.equal(this, o, 'A wrapped function should be called in the context of the first call to the wrapper on next tick');
-  });
+testStandard(
+  'A wrapped function should be called in the context of the first call to the wrapper',
+  function(message, create) {
+    var o = {};
+    var f = create(function() {
+      assert.equal(this, o, message);
+    });
 
-  f.call(o);
-})();
+    f.call(o);
+  }
+);
 
-(function() {
-  var o = {};
-  var f = lethargic.create(function() {
-    assert.equal(this, o, 'A wrapped function should be called in the context of the first call to the wrapper after a timeout');
-  }, DEFAULT_TIMEOUT);
+testStandard(
+  'A wrapped function received the cumulated arguments of all calls',
+  function(message, create) {
+    var f = create(function(a, b, c, d, e, f, g, h, i) {
+      assert.equal(arguments.length, 9, message);
+      assert.equal(a, 1, message);
+      assert.equal(b, 2, message);
+      assert.equal(c, 3, message);
+      assert.equal(d, 4, message);
+      assert.equal(e, 5, message);
+      assert.equal(f, 6, message);
+      assert.equal(g, 7, message);
+      assert.equal(h, 8, message);
+      assert.equal(i, 9, message);
+    });
 
-  f.call(o);
-})();
-
-(function() {
-  var f = lethargic.create(function(a, b, c, d, e, f, g, h, i) {
-    var message = 'A wrapped function received the cumulated arguments of all calls';
-    assert.equal(arguments.length, 9, message);
-    assert.equal(a, 1, message);
-    assert.equal(b, 2, message);
-    assert.equal(c, 3, message);
-    assert.equal(d, 4, message);
-    assert.equal(e, 5, message);
-    assert.equal(f, 6, message);
-    assert.equal(g, 7, message);
-    assert.equal(h, 8, message);
-    assert.equal(i, 9, message);
-  });
-
-  f(1, 2, 3); f(4, 5, 6); f(7, 8, 9);
-})();
+    f(1, 2, 3); f(4, 5, 6); f(7, 8, 9);
+  }
+);
