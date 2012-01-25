@@ -106,3 +106,17 @@ testCallback(
   }
 );
 
+testCallback(
+  'A wrapped callback receives the first passed error',
+  function(message, create) {
+    var e = null, e1 = Error('Error 1'), e2 = Error('e2');
+    var f = create(function(error, foo, bar, baz) {
+      assert.equal(error, e1, message);
+      assert.equal(foo, 'foo');
+      assert.equal(bar, 'bar');
+      assert.equal(baz, 'baz');
+    });
+
+    f(e, 'foo'); f(e1, 'bar'); f(e2, 'baz');
+  }
+);
