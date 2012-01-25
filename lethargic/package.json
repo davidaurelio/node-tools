@@ -2,7 +2,7 @@
   "author": "David Aurelio <dev@david-aurelio.com>",
   "name": "lethargic",
   "description": "Executes actions delayed, not reacting to further calls within that delay.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/davidaurelio/node-tools/blob/master/lethargic",
   "repository": {
     "type": "git",
