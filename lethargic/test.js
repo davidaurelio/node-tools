@@ -120,3 +120,21 @@ testCallback(
     f(e, 'foo'); f(e1, 'bar'); f(e2, 'baz');
   }
 );
+
+testStandard(
+  'Stored arguments are cleared after invokaction of the wrapped function',
+  function(message, create) {
+    var wasInvoked = false;
+    var f = create(function() {
+      if (!wasInvoked) {
+        wasInvoked = true;
+        f(2); f(3); f(4);
+      }
+      else {
+        assert.equals(arguments.length, 3, message);
+      }
+    });
+
+    f(0); f(1);
+  }
+);
