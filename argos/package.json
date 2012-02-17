@@ -1,0 +1,23 @@
+{
+  "author": "David Aurelio <dev@david-aurelio.com>",
+  "name": "argos",
+  "description": "A simple recursive directory watcher",
+  "version": "0.0.1",
+  "homepage": "https://github.com/davidaurelio/node-tools/tree/master/argos",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davidaurelio/node-tools.git"
+  },
+  "main": "main.js",
+  "scripts": {
+    "test": "tap test"
+  },
+  "engines": {
+    "node": "~0.6"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tap": "~0.2",
+    "sinon" : "~1.3"
+  }
+}
